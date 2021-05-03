@@ -1,0 +1,67 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background: #eee;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+}
+
+#telaLogin {
+  width: 500px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 5px 30px rgb(195, 195, 195);
+}
+.btn-dark {
+  background-color: #f95;
+}
+.btn-dark:hover {
+  background-color: #f95;
+}
+h2 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  outline: none;
+  resize: none;
+  overflow: auto;
+}
+form input[type="submit"],
+#edit {
+  margin-right: 25px;
+  margin-left: 25px;
+  margin-top: 2rem;
+  padding: 0.4rem;
+  background-image: linear-gradient(315deg, #f7b42c 0%, #fc575e 74%);
+  cursor: pointer;
+  font-size: 0.9;
+  font-weight: 300;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+}
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}

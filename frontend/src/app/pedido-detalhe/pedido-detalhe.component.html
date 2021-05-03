@@ -1,0 +1,46 @@
+<div *ngFor="let pedido of pedidos let i = index">
+    <div *ngIf="i==id">
+        <div>
+            <h4>Itens</h4>
+            <div>
+                <ul *ngFor="let item of pedido.itens">
+                    <li>{{ item.quantidade }} {{ item.nome }} - {{ item.preco | currency: 'BRL' }}</li>
+                </ul>
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Método de pagamento: {{ pedido.formaPagamento }}</strong>
+                        <h3 [style.color]="pedido.finalizado ? 'green' : 'red' "> {{ pedido.finalizado ? 'O pedido saiu para a entrega' : 'Pedido pendente' }} </h3>
+                    </div>
+                    <div class="col-6">
+                        Total a pagar: <strong>{{ getTotalPagar(pedido?.itens) | currency: 'BRL'}}</strong> <button (click)="changeStatus(pedido.id, !pedido.finalizado)" [class]="pedido.finalizado ? 'btn btn-danger ml-3' : 'btn btn-success ml-3'">{{ pedido.finalizado ? 'Cancelar' : 'Completar Pedido' }}</button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <h4>Observação:</h4>
+            <p>{{ pedido?.observacao? pedido.observacao : 'O cliente não fez nenhuma observação' }}</p>
+            <p>{{ pedido.observacao }}</p>
+        </div>
+        <hr>
+        <h4>Cliente</h4>
+        <div *ngFor="let endereco of pedido.endereco let i = index">
+            <div class="row" *ngIf="endereco.entrega">
+                <div class="col">
+                    <strong>Nome:</strong>
+                    <p>{{ pedido.nomeCliente }}</p>
+                    <strong>Telefone:</strong>
+                    <p>{{ pedido.telefone }}</p>
+                </div>
+                <div class="col-8">
+                    <strong>Endereço:</strong>
+                    <p>Rua: {{ endereco.logradouro }}</p>
+                    <p>Bairro: {{ endereco.bairro }}</p>
+                    <p>Numero: {{ endereco.numero }}</p>
+                    <p>Cidade: {{ endereco.cidade }} - {{ endereco.estado }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "joao",
+  "license": "MIT",
+  "dependencies": {
+    "date-fns": "^2.21.1",
+    "express": "^4.17.1",
+    "firebase": "^8.4.2",
+    "reflect-metadata": "^0.1.13"
+  },
+  "scripts": {
+    "devs": "node src/server.js",
+    "dev": "ts-node-dev src/server.ts",
+    "typeorm": "ts-node-dev node_modules/typeorm/cli"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.4"
+  }
+}
