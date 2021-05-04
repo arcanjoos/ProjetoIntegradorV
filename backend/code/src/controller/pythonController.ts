@@ -1,42 +1,47 @@
 
 import { spawn } from 'child_process'
 
-export const pythonAction = async (request: any, response: any) => {
+export const pythonRelatorio = async (request: any, response: any) => {
 
-    var dataToSend: any;
-    // spawn new child process to call the python script
+    var dados: any
 
-    const python = spawn('python', ['script2.py', 'node.js', 'aa']);
+    // GERA UM NOVO PROCESSO FILHO PARA CHAMAR O SCRIPT PYTHON 
+    const python = await spawn('python', ['script_relatorio.py', 'a', 'python'])
 
-    // collect data from script
+    // PEGAR DADOS DO SCRIPT PYTHON
     python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        dataToSend = data.toString();
-    });
-    // in close event we are sure that stream from child process is closed
+        // console.log('Pipe data from python script ...')
+        dados = data.toString()
+    })
+    // NO EVENTO DE FECHAMENTO, TEMOS CERTEZA DE QUE O FLUXO DO PROCESSO FILHO ESTÁ FECHADO
     python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-        // send data to browser
-        response.send(dataToSend)
-    });
+        // console.log(`child process close all stdio with code ${code}`)
+
+        // ENVIA DADOS PARA O NAVEGADOR
+        response.send(dados)
+    })
+
 }
 
-export const pythonActionEmail = async (request: any, response: any) => {
+export const pythonOrcamento = async (request: any, response: any) => {
+    const { email } = request.params
 
-    var dataToSend: any;
-    // spawn new child process to call the python script
+    var dados: any
 
-    const python = spawn('python', ['scriptEmail.py', 'nome', 'email']);
+    // GERA UM NOVO PROCESSO FILHO PARA CHAMAR O SCRIPT PYTHON 
+    const python = await spawn('python', ['script_orcamento.py'])
 
-    // collect data from script
+    // PEGAR DADOS DO SCRIPT PYTHON
     python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        dataToSend = data.toString();
-    });
-    // in close event we are sure that stream from child process is closed
+        // console.log('Pipe data from python script ...')
+        dados = data.toString()
+    })
+    // NO EVENTO DE FECHAMENTO, TEMOS CERTEZA DE QUE O FLUXO DO PROCESSO FILHO ESTÁ FECHADO
     python.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-        // send data to browser
-        response.send(dataToSend)
-    });
+        // console.log(`child process close all stdio with code ${code}`)
+
+        // ENVIA DADOS PARA O NAVEGADOR
+        response.send(dados)
+    })
+
 }
