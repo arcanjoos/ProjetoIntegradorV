@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import { listarClientes } from './src/controller/clienteController'
 import { listarProdutos } from './src/controller/produtoController'
@@ -8,7 +9,14 @@ import { pythonOrcamento, pythonRelatorio } from './src/controller/pythonControl
 
 const app = express()
 const porta = 3333
+// lista das origens que você deseja permitir que acessem recursos do servidor 
+const allowedOrigins = ['http://localhost:3000'];
 
+const options: cors.CorsOptions = {
+  origin: allowedOrigins
+}
+
+app.use(cors(options))
 app.use(express.json())
 
 app.get('/', (request: any, response: any) => {
