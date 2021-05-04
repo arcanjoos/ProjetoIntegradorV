@@ -24,10 +24,10 @@ def enviar_email():
         linha = linha.strip()
         config.append(linha)
 
-    host = config[0]
-    port = config[1]
-    user = config[2]
-    password = config[3]
+    host = 'smtp.gmail.com' #config[0]
+    port = 465 #config[1]
+    user = 'projetointegrador500@gmail.com' #config[2]
+    password = 'qwe102030' #config[3]
 
     # CRIAÇÃO DA MENSAGEM DE EMAIL
     de = 'projetointegrador500@gmail.com'
