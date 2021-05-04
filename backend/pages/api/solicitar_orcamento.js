@@ -3,23 +3,21 @@ import { spawn } from 'child_process'
 export default async (request, response) => {
   // const { email } = request.params
 
-  var dados = [{}]
+  var dados //= []
 
   // GERA UM NOVO PROCESSO FILHO PARA CHAMAR O SCRIPT PYTHON 
-  // const python = await spawn('python', ['script_orcamento.py'])
+  const python = await spawn('python', ['script_orcamento.py'])
 
-  // // PEGAR DADOS DO SCRIPT PYTHON
-  // python.stdout.on('data', function (data) {
-  //     // console.log('Pipe data from python script ...')
-  //     dados = data.toString()
-  // })
-  // // NO EVENTO DE FECHAMENTO, TEMOS CERTEZA DE QUE O FLUXO DO PROCESSO FILHO ESTÁ FECHADO
-  // python.on('close', (code) => {
-  //     // console.log(`child process close all stdio with code ${code}`)
+  // PEGAR DADOS DO SCRIPT PYTHON
+  python.stdout.on('data', function (data) {
+    // console.log('Pipe data from python script ...')
+    dados = data.toString()
+  })
+  // NO EVENTO DE FECHAMENTO, TEMOS CERTEZA DE QUE O FLUXO DO PROCESSO FILHO ESTÁ FECHADO
+  python.on('close', (code) => {
+    // console.log(`child process close all stdio with code ${code}`)
 
-  //     // ENVIA DADOS PARA O NAVEGADOR
-  //     response.send(dados)
-  // })
-  response.send(dados)
-
+    // ENVIA DADOS PARA O NAVEGADOR
+    response.send(dados)
+  })
 }
