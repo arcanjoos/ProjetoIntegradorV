@@ -104,13 +104,18 @@ def get_clientes():
 
     clientes = []
 
-    # for doc in docs_clientes:
-    # doc['nome'] = doc.to_dict()
-    # print('{}'.format(doc['nome']))
-    # clientes.append({
-    #     'id':  doc.id,
-    #     # doc.to_dict()
-    # })
+    for doc in docs_clientes:
+
+        doc_convertido = doc.to_dict()
+
+        # ADICIONANDO AO ARRAY
+        clientes.append({
+            'id':  doc.id,
+            'nome': doc_convertido['nome'],
+            'telefone': doc_convertido['telefone'],
+            'email': doc_convertido['email'],
+            'endereco': doc_convertido['endereco'],
+        })
 
     return jsonify(clientes)
 
@@ -118,19 +123,28 @@ def get_clientes():
 @app.route('/produtos')
 def get_produtos():
 
-    produtos_ref = db.collection('produto')
+    produtos_ref = db.collection('produtos')
 
     docs_produtos = produtos_ref.stream()
 
     produtos = []
-    for doc in docs_produtos: 
 
-        an_array = np.array(doc.to_dict())
- 
-        produtos.append({
-            'id':  doc.id,
-            # doc: an_array
-        })
+    for doc in docs_produtos:
+
+        # CONVERTER EM DICIONARIO
+        doc_convertido = doc.to_dict()
+
+        # ADICIONANDO AO ARRAY
+        produtos.append(
+            {
+                'id':  doc.id,
+                'nome': doc_convertido['Name'],
+                'descricao': doc_convertido['Description'],
+                'preco': doc_convertido['Price'],
+                'categoria': doc_convertido['Type'],
+                'imagem': doc_convertido['Image']
+            }
+        )
 
     return jsonify(produtos)
 
@@ -142,42 +156,30 @@ def get_pedidos():
 
     docs_pedidos = pedidos_ref.stream()
 
+    print(docs_pedidos)
+
     pedidos = []
+
     for doc in docs_pedidos:
-        pedidos.append({
-            'id':  doc.id,
-            # doc.to_dict()
-        })
 
+        # CONVERTER EM DICIONARIO
+        doc_convertido = doc.to_dict()
+
+        # ADICIONANDO AO ARRAY
+        pedidos.append(
+            {
+                'id':  doc.id,
+                'data': doc_convertido['data'],
+                'finalizado': doc_convertido['finalizado'],
+                'formaPagamento': doc_convertido['formaPagamento'],
+                'idCliente': doc_convertido['idCliente'],
+                'itens': doc_convertido['itens'],
+                'observacao': doc_convertido['observacao'],
+            }
+        )
+
+    # return 'docs_pedidos'
     return jsonify(pedidos)
-
-
-@app.route('/produto')
-def get_produto():
-
-    # dbRef.collection('produto').onSnapshot(
-    #     querySnapshot => {
-    #         querySnapshot.forEach(doc => {
-    #             data.push({
-    #                 idProduto: doc.id,
-    #                 // ...doc.data(),
-    #                  nome: doc.data().nome,
-    #                  descricao: doc.data().descricao,
-    #                  preco: doc.data().preco,
-    #                  categoria: doc.data().categoria,
-    #                  imagem: doc.data().imagem,
-
-    #                 //  nome: doc.data().Name,
-    #                 // descricao: doc.data().Description,
-    #                 // preco: doc.data().Price,
-    #                 // categoria: doc.data().Type,
-    #                 // imagem: doc.data().Image,
-    #             })
-    #         })
-    #         return response.json(data)
-    #     }
-
-    return 'produto.'
 
 
 de = 'projetointegrador500@gmail.com'
@@ -203,7 +205,6 @@ mensagem_orcamento = f'''
 
 @app.route('/solicitar_orcamento', methods=['POST'])
 def enviar_email():
-    # configurar_email()
 
     dados = json.loads(request.data)
     print(dados)
@@ -229,17 +230,19 @@ def enviar_email():
     return jsonify({'mensagem': 'Email enviado com sucesso', 'status': 200})
 
 
-# @app.route('/solicitar_relatorio')
-# def enviar_relatorio():
 
-#     # tabelaProdutos = pd.read_json('/produtos')
-#     # tabelaClientes = pd.read_json('/clientes')
-#     # tabelaPedidos = pd.read_json('/pedidos')
+@app.route('/solicitar_relatorio')
+def enviar_relatorio():
+
+    # tabelaProdutos = pd.read_json('/produtos')
+    # tabelaClientes = pd.read_json('/clientes')
+    # tabelaPedidos = pd.read_json('/pedidos')
 
 #     # display(tabelaClientes)
 
-#     return 'tabelaClientes'
+    return 'Em desenvolvimento'
 
 
 if __name__ == '__main__':
     app.run()
+    panda()
