@@ -16,18 +16,15 @@ import mimetypes
 
 
 def enviar_email():
-    arquivo = open('./.env', 'r')
-    config = []
+    # arquivo = open('./.env', 'r')
+    # config = []
 
-    # ARMAZENAR EM VARIAVEL
-    for linha in arquivo:
-        linha = linha.strip()
-        config.append(linha)
+    # # ARMAZENAR EM VARIAVEL
+    # for linha in arquivo:
+    #     linha = linha.strip()
+    #     config.append(linha)
 
-    host = 'smtp.gmail.com' #config[0]
-    port = 465 #config[1]
-    user = 'projetointegrador500@gmail.com' #config[2]
-    password = 'qwe102030' #config[3]
+
 
     # CRIAÇÃO DA MENSAGEM DE EMAIL
     de = 'projetointegrador500@gmail.com'
@@ -60,12 +57,20 @@ def enviar_email():
 
     raw = msg.as_string()
 
+
+    host = 'smtp.gmail.com'  # config[0]
+    port = 465  # config[1]
+    user = 'projetointegrador500@gmail.com'  # config[2]
+    password = 'qwe102030'  # config[3]
+
+    
     smtp = smtplib.SMTP_SSL(host, port)
     smtp.login(user, password)
     smtp.sendmail(de, para, raw)
     smtp.quit()
 
 
-enviar_email()
+if __name__ == '__main__':
+    enviar_email()
 # FINALIZADO COM SUCESSO
-print('Email enviado com sucesso')
+    print('Email enviado com sucesso')

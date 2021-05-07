@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.get('/', (request: any, response: any) => {
     response.send({
-        'rotas_disponiveis': 'get',
+        'rotas_disponiveis': 'GET',
         "rota_01": '/solicitar_orcamento',
         "rota_02": '/solicitar_relatorio',
         "rota_03": '/pedidos',
