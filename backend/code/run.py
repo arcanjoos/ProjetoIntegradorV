@@ -20,11 +20,12 @@ import requests
 from firebase_admin import credentials, firestore
 # FERRAMENTAS PARA API (TIPO EXPRESS E JSON STRINGFY EM NODE)
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from imutils import paths
 
 # 'INICIANDO API'
 app = Flask(__name__)
-
+CORS(app)
 # CONFIGURAÇÕES FIREBASE
 cred = credentials.Certificate('firebase-sdk.json')
 firebase_admin.initialize_app(cred)
@@ -330,10 +331,10 @@ def enviar_email():
             # adiciona_anexo(msg, i)
 
     # ENVIO PROPRIAMENTE DITO DO EMAIL
-    # smtp = smtplib.SMTP_SSL(host, porta)
-    # smtp.login(usuario, senha)
-    # smtp.sendmail(remetente, destinatario, raw)
-    # smtp.quit()
+    smtp = smtplib.SMTP_SSL(host, porta)
+    smtp.login(usuario, senha)
+    smtp.sendmail(remetente, destinatario, raw)
+    smtp.quit()
 
     return jsonify({'mensagem': 'Email enviado com sucesso', 'status': 200})
 

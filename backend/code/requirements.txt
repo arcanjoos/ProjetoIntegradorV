@@ -1,0 +1,22 @@
+pip install json
+pip install mimetypes
+# PARA ACESSAR PASTAS DO COMPUTADOR
+pip install os
+pip install smtplib
+pip install email 
+pip install email.mime.audio 
+pip install email.mime.base 
+pip install email.mime.image 
+pip install email.mime.multipart 
+# ENVIO POR EMAIL
+pip install email.mime.text 
+
+pip install firebase_admin
+pip install numpy
+# ANALISE DE TABELAS
+pip install pandas
+pip install requests 
+# FERRAMENTAS PARA API (TIPO EXPRESS E JSON STRINGFY EM NODE)
+pip install flask 
+pip install flask_cors 
+pip install imutils
