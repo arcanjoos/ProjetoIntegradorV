@@ -1,7 +1,5 @@
-# IMPORTAÇÃO DO FIREBASE
 import json
 import mimetypes
-# PARA ACESSAR PASTAS DO COMPUTADOR
 import os
 import smtplib
 from email import encoders
@@ -9,25 +7,20 @@ from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
-# ENVIO POR EMAIL
 from email.mime.text import MIMEText
 
 import firebase_admin
 import numpy as np
-# ANALISE DE TABELAS
 import pandas as pd
 import requests
 from firebase_admin import credentials, firestore
-# FERRAMENTAS PARA API (TIPO EXPRESS E JSON STRINGFY EM NODE)
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from imutils import paths
 
 
-# 'INICIANDO API'
 app = Flask(__name__)
 CORS(app)
-# CONFIGURAÇÕES FIREBASE
 cred = credentials.Certificate('firebase-sdk.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -48,14 +41,14 @@ def hello():
     return jsonify(rotas)
 
 
-@ app.route('/api/clientes')
+@app.route('/api/clientes')
 def get_clientes():
 
     clientes_ref = db.collection('usuario')
     docs_clientes = clientes_ref.stream()
 
     clientes = []
-    # endereco_entrega = []
+
 
     for doc in docs_clientes:
         doc_convertido = doc.to_dict()
@@ -63,17 +56,17 @@ def get_clientes():
         doc_endereco = doc_convertido['endereco']
 
         for endereco in doc_endereco:
-            # PARA MOSTRAR APENAS OS ENDERECOS DE ENTREGA
+        
             if (endereco['entrega'] == True):
                 endereco_entrega = endereco
 
-                # ADICIONANDO AO ARRAY
+            
                 clientes.append({
                     'idCliente':  doc.id,
                     'nome': doc_convertido['nome'],
                     'telefone': doc_convertido['telefone'],
                     'email': doc_convertido['email'],
-                    # 'endereco': endereco_entrega,
+                
                     'logradouro': endereco['logradouro'],
                     'numero': endereco['numero'],
                     'complemento': endereco['complemento'],
@@ -86,7 +79,7 @@ def get_clientes():
     return jsonify(clientes)
 
 
-@ app.route('/api/produtos')
+@app.route('/api/produtos')
 def get_produtos():
 
     produtos_ref = db.collection('produtos')
@@ -97,10 +90,10 @@ def get_produtos():
 
     for doc in docs_produtos:
 
-        # CONVERTER EM DICIONARIO
+    
         doc_convertido = doc.to_dict()
 
-        # ADICIONANDO AO ARRAY
+    
         produtos.append(
             {
                 'idProduto':  doc.id,
@@ -115,7 +108,7 @@ def get_produtos():
     return jsonify(produtos)
 
 
-@ app.route('/api/pedidos')
+@app.route('/api/pedidos')
 def get_pedidos():
 
     pedidos_ref = db.collection('pedido')
@@ -128,10 +121,9 @@ def get_pedidos():
  
 
     for doc in docs_pedidos:
-        # CONVERTER EM DICIONARIO
+
         doc_convertido = doc.to_dict()
-        
-        # ALTERAR O TEXTO DA TABELA 
+
         finalizado = ''
         if (doc_convertido['finalizado'] == True):
             finalizado = 'Sim'
@@ -142,7 +134,7 @@ def get_pedidos():
 
          
             pedidos.append({   
-                    # 'codigoPedido': contador,
+                
                     'idPedido':  doc.id,
                     'data': doc_convertido['data'],
                     'finalizado': finalizado,
@@ -155,11 +147,11 @@ def get_pedidos():
                     'observacao': doc_convertido['observacao'],
             })
 
-    # return 'docs_pedidos'
+
     return jsonify(pedidos)
 
 
-@ app.route('/api/mensagens')
+@app.route('/api/mensagens')
 def get_mensagens():
 
     mensagens_ref = db.collection('mensagens')
@@ -170,10 +162,8 @@ def get_mensagens():
 
     for doc in docs_mensagens:
 
-        # CONVERTER EM DICIONARIO
         doc_convertido = doc.to_dict()
 
-        # ADICIONANDO AO ARRAY
         mensagens.append(
             {
                 'idMensagem':  doc.id,
@@ -185,10 +175,10 @@ def get_mensagens():
     return jsonify(mensagens)
 
 
-@ app.route('/api/mensagens/<id>')
+@app.route('/api/mensagens/<id>')
 def get_mensagem_por_id(id):
 
-    mensagens_ref = db.collection('mensagens')  # .where()
+    mensagens_ref = db.collection('mensagens') 
 
     docs_mensagens = mensagens_ref.stream()
 
@@ -196,10 +186,10 @@ def get_mensagem_por_id(id):
 
     for doc in docs_mensagens:
 
-        # CONVERTER EM DICIONARIO
+    
         doc_convertido = doc.to_dict()
 
-        # ADICIONANDO AO ARRAY
+    
         if(id == doc.id):
 
             mensagens.append(
@@ -245,13 +235,13 @@ def adiciona_anexo(msg, filename):
 @app.route('/api/enviar-email/', methods=['POST'])
 def enviar_email():
 
-    # DADOS PARA CONEXAO COM O SERVIDOR
+
     usuario = ''
     senha = ''
     porta = ''
     host = ''
 
-    # DADOS ENVIO MENSAGEM
+
     nome = ''
     remetente = ''
     destinatario = ''
@@ -261,13 +251,13 @@ def enviar_email():
 
     dados = json.loads(request.data)
 
-    # DADOS PARA CONEXAO COM O SERVIDOR
+
     usuario = dados['usuario']
     senha = dados['senha']
     porta = dados['porta']
     host = dados['host']
 
-    # DADOS ENVIO MENSAGEM
+
     nome = dados['nome']
     remetente = dados['remetente']
     destinatario = dados['destinatario']
@@ -275,7 +265,7 @@ def enviar_email():
     mensagem = dados['mensagem']
     anexo = dados['anexo']
 
-    # VALIDAÇÕES BÁSICAS DOS CAMPOS
+
 
     if (anexo == '' or anexo == None):
         anexo = False
@@ -305,10 +295,10 @@ def enviar_email():
             'mensagem': 'Campo assunto é obrigatório', 'status': 404}
         return jsonify(mensagem_erro)
 
-    # SELECIONANDO MENSAGEM A SER ENVIADA
+
     mensagem_email = mensagem
  
-    # CRIAÇÃO DA MENSAGEM DE EMAIL
+
     msg = MIMEMultipart()
     msg['From'] = remetente
     msg['To'] = ', '.join(destinatario)
@@ -318,7 +308,7 @@ def enviar_email():
 
     raw = msg.as_string()
   
-    # ENVIO PROPRIAMENTE DITO DO EMAIL
+
     smtp = smtplib.SMTP_SSL(host, porta)
     smtp.login(usuario, senha)
     smtp.sendmail(remetente, destinatario, raw)
@@ -329,14 +319,14 @@ def enviar_email():
 
 @app.route('/api/gerar-relatorio/<tipo>', methods=['POST'])
 def enviar_relatorio(tipo):
-    # DADOS PARA CONEXAO COM O SERVIDOR
+
     usuario = ''
     senha = ''
     porta = ''
     host = ''
     enviar = ''
 
-    # DADOS ENVIO MENSAGEM
+
     nome = ''
     remetente = ''
     destinatario = ''
@@ -346,13 +336,13 @@ def enviar_relatorio(tipo):
 
     dados = json.loads(request.data)
 
-    # DADOS PARA CONEXAO COM O SERVIDOR
+
     usuario = dados['usuario']
     senha = dados['senha']
     porta = dados['porta']
     host = dados['host']
 
-    # DADOS ENVIO MENSAGEM
+
     nome = dados['nome']
     remetente = dados['remetente']
     destinatario = dados['destinatario']
@@ -367,11 +357,11 @@ def enviar_relatorio(tipo):
     msg['To'] = ', '.join(destinatario)
     msg['Subject'] = assunto
     
-    # SELECIONANDO MENSAGEM A SER ENVIADA
+
     mensagem_email = mensagem
 
     msg.attach(MIMEText(mensagem_email, 'html', 'utf-8'))
-    # VALIDAÇÕES BÁSICAS DOS CAMPOS
+
    
 
     if (anexo == '' or anexo == None):
@@ -404,63 +394,63 @@ def enviar_relatorio(tipo):
 
 
     if(tipo == 'clientes'): 
-        # IMPORTAÇÃO DAS BASES DE DADOS
+    
         tabelaClientes = pd.read_json(r'http://localhost:8080/api/clientes')
 
-        # TRATAMENTO TABELA DE CLIENTES
+    
         tabelaClientes = tabelaClientes.drop('idCliente', axis=1)
  
-        # ANALISE DE DADOS
-        # CALCULANDO QUNATIDADE DE ITENS EM CADA TABELA
+    
+    
         quantidadeClientesCadastrados = tabelaClientes['nome'].count() 
 
         tabelaClientes.to_excel('./anexos/tabelaClientes.xlsx', index=False)
 
 
         if(enviar == True):
-            # ADICIONAR ARQUIVOS ANEXOS
+        
             adiciona_anexo(msg, 'anexos/tabelaClientes.xlsx')  
 
     if(tipo == 'produtos'): 
-        # IMPORTAÇÃO DAS BASES DE DADOS
+    
         tabelaProdutos = pd.read_json(r'http://localhost:8080/api/produtos')
  
-        # TRATAMENTO TABELA DE PRODUTOS
+    
         tabelaProdutos = tabelaProdutos.drop('idProduto', axis=1)
         tabelaProdutos = tabelaProdutos.drop('imagem', axis=1)
 
-        # ANALISE DE DADOS
-        # CALCULANDO QUNATIDADE DE ITENS EM CADA TABELA
+    
+    
         quantidadeProdutosCadastrados = tabelaProdutos['nome'].count() 
  
-        # EXPORTAÇÃO DA PLANILHA
+    
         tabelaProdutos.to_excel('./anexos/tabelaProdutos.xlsx', index=False)
 
 
         if(enviar == True):
-            # ADICIONAR ARQUIVOS ANEXOS 
+        
             adiciona_anexo(msg, 'tabelaProdutos.xlsx') 
 
     if(tipo == 'pedidos'): 
-        # IMPORTAÇÃO DAS BASES DE DADOS
+    
         tabelaClientes = pd.read_json(r'http://localhost:8080/api/clientes')
         tabelaProdutos = pd.read_json(r'http://localhost:8080/api/produtos')
         tabelaPedidos = pd.read_json(r'http://localhost:8080/api/pedidos')    
  
-        # TRATAMENTO DOS DADOS
-        # TRATAMENTO TABELA DE PRODUTOS
+    
+    
         tabelaProdutos = tabelaProdutos.drop('idProduto', axis=1)
         tabelaProdutos = tabelaProdutos.drop('imagem', axis=1)
 
-        # TRATAMENTO TABELA DE CLIENTES
+    
         tabelaClientes = tabelaClientes.drop('idCliente', axis=1)
 
-        # TRATAMENTO TABELA DE PEDIDOS
+    
         tabelaPedidos = tabelaPedidos.drop('idPedido', axis=1)
         tabelaPedidos = tabelaPedidos.drop('idCliente', axis=1)
 
-        # ANALISE DE DADOS
-        # CALCULANDO QUNATIDADE DE ITENS EM CADA TABELA
+    
+    
         quantidadeClientesCadastrados = tabelaClientes['nome'].count()
         quantidadeProdutosCadastrados = tabelaProdutos['nome'].count()
         quantidadePedidosRealizados = tabelaPedidos.loc[tabelaPedidos['finalizado'] == True].count()
@@ -474,12 +464,12 @@ def enviar_relatorio(tipo):
         if(enviar == True):
 
             adiciona_anexo(msg, 'tabelaProdutos.xlsx')
-            # adiciona_anexo(msg, 'anexos/tabelaPedidos.xlsx')   
+        
 
     raw = msg.as_string()
 
     if(enviar == True and anexo == True ):
-        # ENVIO PROPRIAMENTE DITO DO EMAIL
+    
         smtp = smtplib.SMTP_SSL(host, porta)
         smtp.login(usuario, senha)
         smtp.sendmail(remetente, destinatario, raw)
@@ -492,4 +482,4 @@ def enviar_relatorio(tipo):
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run()
