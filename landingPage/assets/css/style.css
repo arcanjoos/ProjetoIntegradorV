@@ -10,7 +10,7 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  background: #770101;
+  background: #7b0000;
   color: #fff;
 }
 
@@ -681,15 +681,16 @@ section {
   display: inline-block;
   background: rgba(255, 255, 255, 0);
   margin: 4px 10px;
+  
 }
 
 .section-title p {
-  margin: 0;
+  margin-top: 10px;
   margin: 0;
   font-size: 36px;
   font-weight: 700;
   font-family: "Playfair Display", serif;
-  color: #303030;
+  color: #ffffff;
 }
 
 /*--------------------------------------------------------------
@@ -749,7 +750,7 @@ section {
 --------------------------------------------------------------*/
 .about {
   align-items: center;
-  background: url("../img/about-bg.jpg") center center;
+  background: url("../img/fundo1.jpg") center center;
   background-size: cover;
   position: relative;
   padding: 80px 0;
@@ -757,7 +758,7 @@ section {
 
 .about:before {
   content: "";
-  background: rgba(0, 0, 0, 0.795);
+  background: rgba(0, 0, 0, 0.884);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -1051,14 +1052,14 @@ section {
 # Events
 --------------------------------------------------------------*/
 .events {
-  background: url(../img/events-bg.jpg) center center no-repeat;
+  background: url(../img/fundo1.jpg) center center no-repeat;
   background-size: cover;
   position: relative;
 }
 
 .events::before {
   content: '';
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.904);
   position: absolute;
   top: 0;
   right: 0;
@@ -1092,7 +1093,7 @@ section {
 .events .event-item h3 {
   font-weight: 600;
   font-size: 26px;
-  color: #830000;
+  color: #ffffff;
 }
 
 .events .event-item .price {
@@ -1700,7 +1701,7 @@ section {
   border: 0;
   padding: 4px;
   width: calc(100% - 110px);
-  background: #281f1f;
+  background: #28251f;
   color: white;
 }
 
