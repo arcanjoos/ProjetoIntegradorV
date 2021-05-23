@@ -118,7 +118,7 @@ def get_pedidos():
     print(docs_pedidos)
 
     pedidos = [ ]
- 
+
 
     for doc in docs_pedidos:
 
@@ -132,7 +132,6 @@ def get_pedidos():
 
         for item in doc_convertido['itens']:
 
-         
             pedidos.append({   
                 
                     'idPedido':  doc.id,
