@@ -103,14 +103,16 @@
 
           <div class='btns'>
             <a href='#events' class='btn-menu animated fadeInUp scrollto'>Nosso Sistema</a>
-            <a href='#contact' class='btn-book animated fadeInUp scrollto'>Fazer um orçamento</a>
+            <a href='#contact' class='btn-book animated fadeInUp scrollto'>Entrar em contato</a>
           </div>
         </div>
+        <!--
         <div class='col-lg-4 d-flex align-items-center justify-content-center position-relative' data-aos='zoom-in'
           data-aos-delay='200'>
-          <a href='https://www.youtube.com/watch?v=DhGoIb5oS-M' class='glightbox play-btn'></a>
+          <a href='https://www.youtube.com/watch?v=SYNikl7GYz4' class='glightbox play-btn'></a>
+          <!-<a href='https://www.youtube.com/watch?v=DhGoIb5oS-M' class='glightbox play-btn'></a>->
         </div>
-
+        -->
       </div>
     </div>
   </section><!-- End Hero -->
@@ -139,11 +141,11 @@
           </p>
           </p>
           <ul>
-            <li><i class='bi bi-check-circle'></i> Perfeito para donos de padarias e lanchonetes.</li>
-            <li><i class='bi bi-check-circle'></i> Tenha controle dos pedidos pela plataforma Web.</li>
+            <li><i class='bi bi-check-circle'></i> Perfeito para donos de padarias e lanchonetes</li>
+            <li><i class='bi bi-check-circle'></i> Tenha controle dos pedidos pela plataforma Web</li>
             <li><i class='bi bi-check-circle'></i> Dê ao seu cliente conforto e segurança com o aplicativo mobile, nele
               é possivel realizar
-              pedidos à qualquer lugar e à qualquer momento.</li>
+              pedidos de qualquer lugar e à qualquer momento</li>
           </ul>
         </div>
       </div>
@@ -173,7 +175,7 @@
           <div class='col-lg-4 mt-4 mt-lg-0'>
             <div class='box' data-aos='zoom-in' data-aos-delay='200'>
               <span>02</span>
-              <h4>ENTREGA SEM FRETE</h4>
+              <h4>ENTREGA SEM TAXA</h4>
               <p></p>
             </div>
           </div>
@@ -465,7 +467,7 @@
             <div class='swiper-slide'>
               <div class='row event-item'>
                 <div class='col-lg-6'>
-                  <img src='assets/img/web2.png' class='img-fluid' alt=''>
+                  <img src='assets/img/web2.JPG' class='img-fluid' alt=''>
                 </div>
                 <div class='col-lg-6 pt-4 pt-lg-0 content'>
                   <h3>Painel de Pedidos</h3>
@@ -473,10 +475,10 @@
                     <p><span>WEB</span></p>
                   </div>
                   <p class='fst-italic'>
-                    Gerencie seus pedidos recebidos do aplicativo mobile de uma forma simples e eficaz!
+                    Gerencie seus pedidos recebidos do aplicativo mobile de uma forma simples e eficaz
                   </p>
                   <ul>
-                    <li><i class='bi bi-check-circled'></i> Legenda de estado: Concluído, Em Atendimento, Cancelado;
+                    <li><i class='bi bi-check-circled'></i>  Concluído, Em Atendimento, Cancelado;
                     </li>
                     <li><i class='bi bi-check-circled'></i> Veja o cliente do pedido, data e horário;
                     </li>
@@ -769,7 +771,7 @@
       <div class='container' data-aos='fade-up'>
         <div class='section-title'>
           <h2>PARCEIROS</h2>
-          <p>Fotos de algumas padarias dos nossos parceiros!</p>
+          <p>Fotos de algumas padarias de nossos parceiros!</p>
         </div>
       </div>
 
@@ -923,7 +925,7 @@
 
         <div class='section-title'>
           <h2>Contato</h2>
-          <p>Entrar em Contato</p>
+          
         </div>
       </div>
 
@@ -950,7 +952,7 @@
                 <h4>Horário de Funcionamento:</h4>
                 <p>
                   Segunda-Sábado:<br>
-                  06:00 AM - 20:00 PM
+                  08:00 AM - 18:00 PM
                 </p>
               </div>
 
@@ -958,6 +960,7 @@
                 <i class='bi bi-envelope'></i>
                 <h4>Email:</h4>
                 <p>contato@padariadelivery.com</p>
+                <p>projetointegrador500@gmail.com</p>
               </div>
 
               <div class='phone'>
@@ -972,26 +975,35 @@
 
           <div class='col-lg-8 mt-5 mt-lg-0'>
 
-            <form action='forms/contact.php' method='post' role='form' class='php-email-form'>
+            <form action='./enviar-email.php'  method= 'POST' role='form' class='php-email-form'>
               <div class='row'>
                 <div class='col-md-6 form-group'>
-                  <input type='text' name='name' class='form-control' id='name' placeholder='Nome' required>
+                  <input type='text' name='nome' class='form-control' id='nome' placeholder='Nome' required>
                 </div>
                 <div class='col-md-6 form-group mt-3 mt-md-0'>
                   <input type='email' class='form-control' name='email' id='email' placeholder='Email' required>
                 </div>
               </div>
+              
               <div class='form-group mt-3'>
-                <input type='text' class='form-control' name='subject' id='subject' placeholder='Assunto' required>
+               
+                <select  class='form-control'name='assunto'>
+                  <option>Assunto comercial</option>
+                  <option>Assunto técnico</option>
+                  <option>Outros</option>
+                </select>
               </div>
+            
               <div class='form-group mt-3'>
-                <textarea class='form-control' name='message' rows='8' placeholder='Mensagem' required></textarea>
+                <textarea class='form-control' name='mensagem' rows='8' placeholder='Mensagem' required></textarea>
               </div>
+              <!--
               <div class='my-3'>
                 <div class='loading'>Enviando ...</div>
                 <div class='error-message'></div>
                 <div class='sent-message'>Mensagem enviada com sucesso. Agradecemos o contato!</div>
               </div>
+            -->
               <div class='text-center'><button type='submit'>Enviar Mensagem</button></div>
             </form>
 
@@ -1043,7 +1055,9 @@
             </ul>
           </div>
 
+          
           <div class='col-lg-5 col-md-6 footer-newsletter'>
+           
             <h4>Noticías</h4>
             <p>Fique por dentro de todas as novidades</p>
             <form action='' method='post'>
