@@ -37,7 +37,10 @@ if ((isset($_POST['email']) && !empty(trim($_POST['email']))) && (isset($_POST['
     
 
     if($mail->send()) {
-    echo 'alert( Email enviado com sucesso! )';
+      echo ("<SCRIPT LANGUAGE='JavaScript'>
+      window.alert('Email enviado')
+      window.location.href='./index.html';
+      </SCRIPT>");
     } else {
     echo 'Email não enviado!';
     }
