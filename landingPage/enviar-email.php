@@ -30,15 +30,20 @@ if ((isset($_POST['email']) && !empty(trim($_POST['email']))) && (isset($_POST['
 
     $mail->isHTML(true);
     $mail->Subject = $assunto;
-    $mail->Body = "Nome: {$nome}<br>
-                  Email: {$email}<br>
-                  Mensagem: {$mensagem}<br>
-                  Data/hora: {$data}";
-    
+    $mail->Body .= '<html><body>';
+    $mail->Body .= '<img src="../img/fundo1.JPG" />';
+    $mail->Body .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+    $mail->Body .= "<tr style='background: #bf8d92;'><td><strong>Nome:</strong> </td><td>" . $nome . "</td></tr>";
+    $mail->Body .= "<tr style='background: #bf8d92;'><td><strong>Email:</strong> </td><td>" . $email . "</td></tr>";
+    $mail->Body .= "<tr style='background: #bf8d92;'><td><strong>Assunto:</strong> </td><td>" . $assunto . "</td></tr>";
+    $mail->Body .= "<tr style='background: #bf8d92;'><td><strong>Mensagem:</strong> </td><td>" . $mensagem . "</td></tr>";
+    $mail->Body .= "<tr style='background: #bf8d92;'><td><strong>Data:</strong> </td><td>" . $data . "</td></tr>";
+    $mail->Body .= "</table>";
+    $mail->Body .= "</body></html>";
 
     if($mail->send()) {
       echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.alert('Email enviado')
+      window.alert('Email enviado com sucesso!')
       window.location.href='./index.html';
       </SCRIPT>");
     } else {
